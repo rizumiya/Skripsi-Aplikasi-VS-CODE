@@ -19,3 +19,5 @@ Screenshot GUI :
 ![Main window](/screenshot/mainapp.jpg)
 
 Examples of exam papers used by this application :
+
+## NOTE : THE ICONS I USED IN THIS APPLICATION IS PIRATED HEHE.., SO GET YOUR OWN ICONS
