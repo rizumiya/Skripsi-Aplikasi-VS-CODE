@@ -16,7 +16,7 @@ mainMenu.title('OMRay')
 mainMenu.geometry('500x925+100+20')
 mainMenu.configure(bg="#fff")
 mainMenu.resizable(False, False)
-mainMenu.iconbitmap('img/OMRay.ico')
+mainMenu.iconbitmap('OMRay.ico')
 
 # header ===============================================
 
