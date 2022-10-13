@@ -1,6 +1,6 @@
 # OMRay - Optical Mark Recognition application based on Indonesia's exam papers (Non-LJK)
 
-Only GUI, there is no function yet
+Only GUI, no function yet
 
 Future updates : 
 - Local database (SQLite)
