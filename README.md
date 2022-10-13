@@ -8,6 +8,7 @@ Future updates :
 
 Screenshot GUI :
 
-
+/../main/assets/images/electrocat.png
+![Sign In window](/screenshot/signin.jpg)
 
 Examples of exam papers used by this application :

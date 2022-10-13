@@ -16,11 +16,11 @@ mainMenu.title('OMRay')
 mainMenu.geometry('500x925+100+20')
 mainMenu.configure(bg="#fff")
 mainMenu.resizable(False, False)
-mainMenu.iconbitmap('OMRay.ico')
+# mainMenu.iconbitmap('OMRay.ico')
 
 # header ===============================================
 
-img = PhotoImage(file='img/wp1.png')
+img = PhotoImage(file='../assets/images/wp1.png')
 Label(mainMenu, image=img, bg='white').place(x=30, y=30)
 
 frameSignIn = Frame(mainMenu, width=280, height=200, bg="white")
