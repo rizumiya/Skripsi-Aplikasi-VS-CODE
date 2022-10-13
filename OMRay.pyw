@@ -59,6 +59,11 @@ def autoRun():
         file.close()
 
 
+def on_closing():
+    if messagebox.askokcancel("Quit", "Do you want to quit?"):
+        mainMenu.destroy()
+
+
 def showSignUp():
     signUpWd = Toplevel(mainMenu)
     signUpWd.title("OMRay - Sign Up")
@@ -301,6 +306,7 @@ def showSignIn():
                      font=('Calibri(Body)', 9, 'bold'), command=signUp_cmd)
     sign_up.place(x=223, y=270)
 
+    signInWd.protocol("WM_DELETE_WINDOW", on_closing)
     signInWd.mainloop()
 
 
