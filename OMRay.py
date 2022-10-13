@@ -7,7 +7,6 @@
 # Contact: +62 895 0811 7055 (Telegram)
 # =======================================================
 
-from opcode import opname
 from tkinter import *
 from tkinter import messagebox
 import ast
@@ -17,11 +16,11 @@ mainMenu.title('OMRay')
 mainMenu.geometry('500x925+100+20')
 mainMenu.configure(bg="#fff")
 mainMenu.resizable(False, False)
-# mainMenu.iconbitmap('OMRay.ico')
+mainMenu.iconbitmap('main/assets/images/OMRay.ico')
 
 # header ===============================================
 
-img = PhotoImage(file="assets/images/wp1.png")
+img = PhotoImage(file='main/assets/images/wp1.png')
 Label(mainMenu, image=img, bg='white').place(x=30, y=30)
 
 frameSignIn = Frame(mainMenu, width=280, height=200, bg="white")
@@ -71,6 +70,7 @@ def showSignUp():
     signUpWd.geometry('925x500+300+200')
     signUpWd.configure(bg="#fff")
     signUpWd.resizable(False, False)
+    signUpWd.iconbitmap('main/assets/images/OMRay.ico')
 
     # function ====================================================
 
@@ -109,7 +109,7 @@ def showSignUp():
 
     # set tampilan ================================================
 
-    img = PhotoImage(file='img/wp2.png')
+    img = PhotoImage(file='main/assets/images/wp2.png')
     Label(signUpWd, image=img, bg='white').place(x=50, y=100)
 
     frame = Frame(signUpWd, width=350, height=390, bg="white")
@@ -212,10 +212,11 @@ def showSignIn():
     signInWd.geometry('925x500+300+200')
     signInWd.configure(bg="#fff")
     signInWd.resizable(False, False)
+    signInWd.iconbitmap('main/assets/images/OMRay.ico')
 
     # set tampilan ================================================
 
-    imgSi = PhotoImage(file='img/wp.png')
+    imgSi = PhotoImage(file='main/assets/images/wp.png')
     Label(signInWd, image=imgSi, bg='white').place(x=50, y=50)
 
     frameSignIn = Frame(signInWd, width=350, height=350, bg="white")
@@ -316,7 +317,7 @@ frame_btn = Frame(mainMenu, width=440, height=650, bg="white")
 frame_btn.place(x=30, y=230)
 
 # @@@ bagian tambah format kertas ujian ==================================
-papIco = PhotoImage(file='img/paper.png')
+papIco = PhotoImage(file='main/assets/images/paper.png')
 n_paper = Button(frame_btn, width=395, pady=15, text='Add New Paper',
                  bg='#3B92EA', fg='white', border=0, cursor='hand2',
                  font=('Calibri(Body)', 11, 'bold'), image=papIco,
@@ -324,7 +325,7 @@ n_paper = Button(frame_btn, width=395, pady=15, text='Add New Paper',
 n_paper.place(x=20, y=20)
 
 # @@@ bagian tambah mata pelajaran =======================================
-subIco = PhotoImage(file='img/subject.png')
+subIco = PhotoImage(file='main/assets/images/subject.png')
 n_subject = Button(frame_btn, width=395, pady=15, text='Add New Subject',
                    bg='#3B92EA', fg='white', border=0, cursor='hand2',
                    font=('Calibri(Body)', 11, 'bold'), image=subIco,
@@ -332,7 +333,7 @@ n_subject = Button(frame_btn, width=395, pady=15, text='Add New Subject',
 n_subject.place(x=20, y=150)
 
 # @@@ bagian edit format kertas ujian ====================================
-perIco = PhotoImage(file='img/paperedit.png')
+perIco = PhotoImage(file='main/assets/images/paperedit.png')
 u_paper = Button(frame_btn, width=395, pady=15, text='Customize Existing Paper',
                  bg='#3B92EA', fg='white', border=0, cursor='hand2',
                  font=('Calibri(Body)', 11, 'bold'), image=perIco,
@@ -340,7 +341,7 @@ u_paper = Button(frame_btn, width=395, pady=15, text='Customize Existing Paper',
 u_paper.place(x=20, y=280)
 
 # @@@ bagian edit mata pelajaran =========================================
-jectIco = PhotoImage(file='img/subjectedit.png')
+jectIco = PhotoImage(file='main/assets/images/subjectedit.png')
 u_subject = Button(frame_btn, width=395, pady=15, text='Customize Existing Subject',
                    bg='#3B92EA', fg='white', border=0, cursor='hand2',
                    font=('Calibri(Body)', 11, 'bold'), image=jectIco,
@@ -348,7 +349,7 @@ u_subject = Button(frame_btn, width=395, pady=15, text='Customize Existing Subje
 u_subject.place(x=20, y=410)
 
 # @@@ bagian mulai scanning ==============================================
-scanIco = PhotoImage(file='img/scan.png')
+scanIco = PhotoImage(file='main/assets/images/scan.png')
 scanbtn = Button(frame_btn, width=436, pady=30, text='Scan Exam Paper',
                  bg='#3B92EA', fg='white', border=0, cursor='hand2',
                  font=('Calibri(Body)', 15, 'bold'), image=scanIco,
