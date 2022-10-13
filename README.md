@@ -8,11 +8,14 @@ Future updates :
 
 Screenshot GUI :
 
--Sign In Window
+- Sign In Window
+
 ![Sign In window](/screenshot/signin.jpg)
--Sign Up Window
+- Sign Up Window
+
 ![Sign Up window](/screenshot/signup.jpg)
--Main Window
+- Main Window
+
 ![Main window](/screenshot/mainapp.jpg)
 
 Examples of exam papers used by this application :
