@@ -358,6 +358,8 @@ scanbtn.place(x=0, y=540)
 # main app ===============================================
 
 mainMenu.wait_visibility()
+mainMenu.protocol("WM_DELETE_WINDOW", on_closing)
 autoRun()
 showSignIn()
+
 mainMenu.mainloop()
