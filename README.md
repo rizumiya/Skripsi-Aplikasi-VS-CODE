@@ -2,6 +2,10 @@
 
 Only GUI, no function yet
 
+Current features :
+- Local database for sign in & sign up
+- 
+
 Future updates : 
 - Local database (SQLite)
 - no idea.. XD
@@ -19,5 +23,7 @@ Screenshot GUI :
 ![Main window](/screenshot/mainapp.jpg)
 
 Examples of exam papers used by this application :
+
+too lazy to upload
 
 **NOTE : THE ICONS I USE IN THIS APPLICATION ARE PIRATED HEHE.., SO GET YOUR OWN ICON**
