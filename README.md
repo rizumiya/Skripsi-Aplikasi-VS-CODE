@@ -7,7 +7,6 @@ Current features :
 - 
 
 Future updates : 
-- Local database (SQLite)
 - no idea.. XD
 
 Screenshot GUI :
