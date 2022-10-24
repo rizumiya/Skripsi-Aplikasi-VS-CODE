@@ -50,12 +50,12 @@ def stackImages(imgArray, scale, lables=[]):
 def reorder(myPoints):
 
     myPoints = myPoints.reshape((4, 2))  # REMOVE EXTRA BRACKET
-    print(myPoints)
+    #print(myPoints)
     # NEW MATRIX WITH ARRANGED POINTS
     myPointsNew = np.zeros((4, 1, 2), np.int32)
     add = myPoints.sum(1)
-    print(add)
-    print(np.argmax(add))
+    #print(add)
+    #print(np.argmax(add))
     myPointsNew[0] = myPoints[np.argmin(add)]  # [0,0]
     myPointsNew[3] = myPoints[np.argmax(add)]  # [w,h]
     diff = np.diff(myPoints, axis=1)
