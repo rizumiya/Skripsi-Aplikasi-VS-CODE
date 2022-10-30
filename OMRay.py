@@ -42,22 +42,54 @@ subheading2 = Label(frameSignIn, text='Made by Rizki Nur Rachmadi Y', fg='#3B92E
                     font=('Microsoft YaHei UI Light', 9, 'bold'))
 subheading2.place(x=10, y=120)
 
+
+# customize button in main app ========================================
+
+def setButton():
+    frame_btn = Frame(mainMenu, width=440, height=650, bg="white")
+    frame_btn.place(x=30, y=230)
+
+    # @@@ bagian tambah format kertas ujian ==================================
+    papIco = PhotoImage(file='assets/images/paper.png')
+    n_paper = Button(frame_btn, width=395, pady=15, text='Add New Paper',
+                     bg='#3B92EA', fg='white', border=0, cursor='hand2',
+                     font=('Calibri(Body)', 11, 'bold'), image=papIco,
+                     compound=LEFT)
+    n_paper.place(x=20, y=20)
+
+    # @@@ bagian tambah mata pelajaran =======================================
+    subIco = PhotoImage(file='assets/images/subject.png')
+    n_subject = Button(frame_btn, width=395, pady=15, text='Add New Subject',
+                       bg='#3B92EA', fg='white', border=0, cursor='hand2',
+                       font=('Calibri(Body)', 11, 'bold'), image=subIco,
+                       compound=RIGHT)
+    n_subject.place(x=20, y=150)
+
+    # @@@ bagian edit format kertas ujian ====================================
+    perIco = PhotoImage(file='assets/images/paperedit.png')
+    u_paper = Button(frame_btn, width=395, pady=15, text='Customize Existing Paper',
+                     bg='#3B92EA', fg='white', border=0, cursor='hand2',
+                     font=('Calibri(Body)', 11, 'bold'), image=perIco,
+                     compound=LEFT)
+    u_paper.place(x=20, y=280)
+
+    # @@@ bagian edit mata pelajaran =========================================
+    jectIco = PhotoImage(file='assets/images/subjectedit.png')
+    u_subject = Button(frame_btn, width=395, pady=15, text='Customize Existing Subject',
+                       bg='#3B92EA', fg='white', border=0, cursor='hand2',
+                       font=('Calibri(Body)', 11, 'bold'), image=jectIco,
+                       compound=RIGHT)
+    u_subject.place(x=20, y=410)
+
+    # @@@ bagian mulai scanning ==============================================
+    scanIco = PhotoImage(file='assets/images/scan.png')
+    scanbtn = Button(frame_btn, width=436, pady=30, text='Scan Exam Paper',
+                     bg='#3B92EA', fg='white', border=0, cursor='hand2',
+                     font=('Calibri(Body)', 15, 'bold'), image=scanIco,
+                     compound=LEFT)
+    scanbtn.place(x=0, y=540)
+
 # function ===============================================
-
-
-def autoRun():
-    # hide dashboard ---------
-    mainMenu.withdraw()
-    # creating database
-    MYDIR = os.path.dirname(__file__)
-    SQLPATH = os.path.join(MYDIR, "assets", "temps", "omr.db")
-    global conn
-    conn = sqlite3.connect(SQLPATH)
-    conn.execute("""
-    CREATE TABLE IF NOT EXISTS logins (
-        username text,
-        password text
-    )""")
 
 
 def on_closing():
@@ -83,7 +115,7 @@ def showSignUp():
         confirm_password = confirm_code.get()
 
         if password == confirm_password:
-            conn.execute("INSERT INTO logins VALUES (?,?)",
+            conn.execute("INSERT INTO logins VALUES (?,?, 'off')",
                          (username, password))
             conn.commit()
             messagebox.showinfo('Sign Up', 'Account created successfully')
@@ -222,7 +254,11 @@ def showSignIn():
         cursor = conn.execute(
             'SELECT * FROM logins WHERE username="%s" and password="%s"' % (username, password))
         if cursor.fetchone():
+            conn.execute(
+                "UPDATE logins SET status = 'on' WHERE username=? and password=?", (username, password))
+            conn.commit()
             mainMenu.deiconify()
+            setButton()
             signInWd.destroy()
         else:
             messagebox.showerror("Invalid", "invalid username or password")
@@ -295,56 +331,34 @@ def showSignIn():
     signInWd.mainloop()
 
 
-# button =================================================
+def autoRun():
+    # hide dashboard ---------
+    mainMenu.withdraw()
+    # creating database
+    MYDIR = os.path.dirname(__file__)
+    SQLPATH = os.path.join(MYDIR, "assets", "temps", "omr.db")
+    global conn
+    conn = sqlite3.connect(SQLPATH)
+    conn.execute("""
+    CREATE TABLE IF NOT EXISTS logins (
+        username text,
+        password text,
+        status text
+    )""")
 
-frame_btn = Frame(mainMenu, width=440, height=650, bg="white")
-frame_btn.place(x=30, y=230)
-
-# @@@ bagian tambah format kertas ujian ==================================
-papIco = PhotoImage(file='assets/images/paper.png')
-n_paper = Button(frame_btn, width=395, pady=15, text='Add New Paper',
-                 bg='#3B92EA', fg='white', border=0, cursor='hand2',
-                 font=('Calibri(Body)', 11, 'bold'), image=papIco,
-                 compound=LEFT)
-n_paper.place(x=20, y=20)
-
-# @@@ bagian tambah mata pelajaran =======================================
-subIco = PhotoImage(file='assets/images/subject.png')
-n_subject = Button(frame_btn, width=395, pady=15, text='Add New Subject',
-                   bg='#3B92EA', fg='white', border=0, cursor='hand2',
-                   font=('Calibri(Body)', 11, 'bold'), image=subIco,
-                   compound=RIGHT)
-n_subject.place(x=20, y=150)
-
-# @@@ bagian edit format kertas ujian ====================================
-perIco = PhotoImage(file='assets/images/paperedit.png')
-u_paper = Button(frame_btn, width=395, pady=15, text='Customize Existing Paper',
-                 bg='#3B92EA', fg='white', border=0, cursor='hand2',
-                 font=('Calibri(Body)', 11, 'bold'), image=perIco,
-                 compound=LEFT)
-u_paper.place(x=20, y=280)
-
-# @@@ bagian edit mata pelajaran =========================================
-jectIco = PhotoImage(file='assets/images/subjectedit.png')
-u_subject = Button(frame_btn, width=395, pady=15, text='Customize Existing Subject',
-                   bg='#3B92EA', fg='white', border=0, cursor='hand2',
-                   font=('Calibri(Body)', 11, 'bold'), image=jectIco,
-                   compound=RIGHT)
-u_subject.place(x=20, y=410)
-
-# @@@ bagian mulai scanning ==============================================
-scanIco = PhotoImage(file='assets/images/scan.png')
-scanbtn = Button(frame_btn, width=436, pady=30, text='Scan Exam Paper',
-                 bg='#3B92EA', fg='white', border=0, cursor='hand2',
-                 font=('Calibri(Body)', 15, 'bold'), image=scanIco,
-                 compound=LEFT)
-scanbtn.place(x=0, y=540)
+    cursor = conn.execute(
+        'SELECT * FROM logins WHERE status= "on"')
+    if cursor.fetchone():
+        mainMenu.deiconify()
+        setButton()
+    else:
+        showSignIn()
 
 # main app ===============================================
+
 
 mainMenu.wait_visibility()
 mainMenu.protocol("WM_DELETE_WINDOW", on_closing)
 autoRun()
-showSignIn()
 
 mainMenu.mainloop()
