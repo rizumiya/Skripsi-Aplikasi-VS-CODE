@@ -89,12 +89,13 @@ def getCornerPoints(cont):
 
 
 def splitBoxes(img):
-    rows = np.vsplit(img, 5)
+    rows = np.vsplit(img, 10)
     boxes = []
     for r in rows:
         cols = np.hsplit(r, 5)
         for box in cols:
             boxes.append(box)
+            # cv2.imshow("split", box)
     return boxes
 
 
