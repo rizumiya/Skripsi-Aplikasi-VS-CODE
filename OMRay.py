@@ -11,7 +11,6 @@ from dis import findlinestarts
 from tkinter import *
 from tkinter import messagebox
 import sqlite3
-import ast
 import os
 
 mainMenu = Tk()
