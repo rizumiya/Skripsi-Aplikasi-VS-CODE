@@ -331,8 +331,6 @@ def showSignIn():
 
 
 def autoRun():
-    # hide dashboard ---------
-    mainMenu.withdraw()
     # creating database
     MYDIR = os.path.dirname(__file__)
     SQLPATH = os.path.join(MYDIR, "assets", "temps", "omr.db")
@@ -351,6 +349,8 @@ def autoRun():
         mainMenu.deiconify()
         setButton()
     else:
+        # hide dashboard ---------
+        mainMenu.withdraw()
         showSignIn()
 
 # main app ===============================================
