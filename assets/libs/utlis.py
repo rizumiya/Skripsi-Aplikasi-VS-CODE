@@ -48,14 +48,13 @@ def stackImages(imgArray, scale, lables=[]):
 
 
 def reorder(myPoints):
-
     myPoints = myPoints.reshape((4, 2))  # REMOVE EXTRA BRACKET
-    #print(myPoints)
+    # print(myPoints)
     # NEW MATRIX WITH ARRANGED POINTS
     myPointsNew = np.zeros((4, 1, 2), np.int32)
     add = myPoints.sum(1)
-    #print(add)
-    #print(np.argmax(add))
+    # print(add)
+    # print(np.argmax(add))
     myPointsNew[0] = myPoints[np.argmin(add)]  # [0,0]
     myPointsNew[3] = myPoints[np.argmax(add)]  # [w,h]
     diff = np.diff(myPoints, axis=1)
@@ -66,7 +65,6 @@ def reorder(myPoints):
 
 
 def rectContour(contours):
-
     rectCon = []
     max_area = 0
     for i in contours:
@@ -113,9 +111,9 @@ def drawGrid(img, questions=5, choices=5):
     return img
 
 
-def showAnswers(img, myIndex, grading, ans, questions=5, choices=5):
-    secW = int(img.shape[1]/questions)
-    secH = int(img.shape[0]/choices)
+def showAnswers(img, myIndex, grading, ans, questions, choices):
+    secW = int(img.shape[1]/choices)
+    secH = int(img.shape[0]/questions)
 
     for x in range(0, questions):
         myAns = myIndex[x]
@@ -124,14 +122,14 @@ def showAnswers(img, myIndex, grading, ans, questions=5, choices=5):
         if grading[x] == 1:
             myColor = (0, 255, 0)
             # cv2.rectangle(img,(myAns*secW,x*secH),((myAns*secW)+secW,(x*secH)+secH),myColor,cv2.FILLED)
-            cv2.circle(img, (cX, cY), 50, myColor, cv2.FILLED)
+            cv2.circle(img, (cX, cY), 35, myColor, cv2.FILLED)
         else:
             myColor = (0, 0, 255)
             #cv2.rectangle(img, (myAns * secW, x * secH), ((myAns * secW) + secW, (x * secH) + secH), myColor, cv2.FILLED)
-            cv2.circle(img, (cX, cY), 50, myColor, cv2.FILLED)
+            cv2.circle(img, (cX, cY), 35, myColor, cv2.FILLED)
 
             # CORRECT ANSWER
             myColor = (0, 255, 0)
             correctAns = ans[x]
-            cv2.circle(img, ((correctAns * secW)+secW//2, (x * secH)+secH//2),
+            cv2.circle(img, ((correctAns * secW)+secW//2, (x * secH) + secH // 2),
                        20, myColor, cv2.FILLED)
