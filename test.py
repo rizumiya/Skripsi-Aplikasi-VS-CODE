@@ -6,6 +6,7 @@ import assets.libs.utlis as utlis
 path = "assets/paper/paper4.jpg"
 widthImg = 600
 heightImg = 800
+kernel = np.ones((5, 5), np.uint8)
 
 questions = 10
 choices = 5
@@ -13,7 +14,7 @@ choices = 5
 ans = [2, 3, 1, 2, 3, 2, 2, 3, 1, 3]
 
 webcamFeed = True
-cameraNo = 1
+cameraNo = 0
 # ===============================
 
 cap = cv2.VideoCapture(cameraNo)
@@ -24,7 +25,7 @@ while True:
         success, img = cap.read()
     else:
         img = cv2.imread(path)
-
+    # img = cv2.imread(path)
     # Preprocessing
     img = cv2.resize(img, (widthImg, heightImg))
     imgContours = img.copy()
@@ -32,13 +33,15 @@ while True:
     imgBiggestContours = img.copy()
     imgGray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     imgBlur = cv2.GaussianBlur(imgGray, (5, 5), 1)
-    imgCanny = cv2.Canny(imgBlur, 10, 50)
+    imgCanny = cv2.Canny(imgBlur, 10, 40)
+    imgDilate = cv2.dilate(imgCanny, kernel, iterations=1)
+    # imgCanny = imutils.auto_canny(imgBlur)
 
     try:
 
         # Finding all contours
         contours, hierarchy = cv2.findContours(
-            imgCanny, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
+            imgDilate, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
         cv2.drawContours(imgContours, contours, -1, (0, 255, 0), 10)
 
         # Find Rectangles
@@ -49,8 +52,9 @@ while True:
 
         if biggestContour.size != 0 and gradePoints.size != 0:
             cv2.drawContours(imgBiggestContours,
-                            biggestContour, -1, (0, 255, 0), 20)
-            cv2.drawContours(imgBiggestContours, gradePoints, -1, (255, 0, 0), 20)
+                             biggestContour, -1, (0, 255, 0), 20)
+            cv2.drawContours(imgBiggestContours,
+                             gradePoints, -1, (255, 0, 0), 20)
 
             biggestContour = utlis.reorder(biggestContour)
             gradePoints = utlis.reorder(gradePoints)
@@ -86,12 +90,15 @@ while True:
 
             for image in boxes:
                 totalPixels = cv2.countNonZero(image)
-                myPixelVal[countR][countC] = totalPixels
+                if countC == 0:
+                    myPixelVal[countR][countC] = 0
+                else:
+                    myPixelVal[countR][countC] = totalPixels
                 countC += 1
                 if (countC == choices):
                     countR += 1
                     countC = 0
-            # print(myPixelVal)
+            print(myPixelVal)
 
             # Finding index values of the marks
             myIndex = []
@@ -99,6 +106,7 @@ while True:
                 arr = myPixelVal[x]
                 myIndexVal = np.where(arr == np.amax(arr))
                 myIndex.append(myIndexVal[0][0])
+                # print(myIndex)
 
             # Grading
             grading = []
@@ -113,10 +121,11 @@ while True:
 
             # Displaying correct answers
             imgResult = imgWarpColored.copy()
-            utlis.showAnswers(imgResult, myIndex, grading, ans, questions, choices)
+            utlis.showAnswers(imgResult, myIndex, grading,
+                              ans, questions, choices)
             imgRawDrawing = np.zeros_like(imgWarpColored)
             utlis.showAnswers(imgRawDrawing, myIndex, grading,
-                            ans, questions, choices)
+                              ans, questions, choices)
             invMatrix = cv2.getPerspectiveTransform(pt2, pt1)
             imgInWarp = cv2.warpPerspective(
                 imgRawDrawing, invMatrix, (widthImg, heightImg))
@@ -132,9 +141,8 @@ while True:
 
     except:
         imgBlank = np.zeros_like(img)
-        imgArray = ([img, imgGray, imgBlur, imgCanny],
+        imgArray = ([img, imgGray, imgBlur, imgDilate],
                     [imgBlank, imgBlank, imgBlank, imgBlank])
-
 
     imgStacked = utlis.stackImages(imgArray, 0.5)
     cv2.imshow("Final Grade", imgFinal)
@@ -143,4 +151,4 @@ while True:
     # cv2.waitKey(0)
     if cv2.waitKey(1) & 0xFF == ord('s'):
         cv2.imwrite("FinalResult.jpg", imgFinal)
-        cv2.waitKey(300)
+        cv2.waitKey(0)
